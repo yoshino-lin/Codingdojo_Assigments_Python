@@ -25,7 +25,6 @@ print(sum)
 for i in range(2018,0,-4):
     print(i)
 
-print("-------")
 #Flexible Counter
 def flexible_counter(lowNum,highNum,mult):
     same_line=""
@@ -33,4 +32,4 @@ def flexible_counter(lowNum,highNum,mult):
         if i%mult==0:
             same_line+=str(i)+", "
     return same_line.strip(', ')
-print(flexible_counter(2,9,3))
+#print(flexible_counter(2,9,3))
