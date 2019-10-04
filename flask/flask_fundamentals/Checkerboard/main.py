@@ -7,7 +7,7 @@ def default_board():
 
 @app.route('/<int:x>')
 def default_board_2(x):
-    return render_template("index.html", number_of_box_width=x, number_of_box_height=8, box_color1="red", box_color2="black")
+    return render_template("index.html", number_of_box_width=x, number_of_box_height=x, box_color1="red", box_color2="black")
 
 @app.route('/<int:x>/<int:y>')
 def default_board_3(x,y):
