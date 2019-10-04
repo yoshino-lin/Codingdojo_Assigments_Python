@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        {% for i in range(number_of_box_height): %}
+            {% if i%2!=0 %}
+                {% for a in range(number_of_box_width): %}
+                    {% if a%2!=0 %}
+                        <div class="small_box" style="background-color:{{box_color1}};"></div>
+                    {% endif %}
+                    {% if a%2==0 %}
+                        <div class="small_box" style="background-color:{{box_color2}};"></div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if i%2==0 %}
+                {% for a in range(number_of_box_width): %}
+                    {% if a%2!=0 %}
+                        <div class="small_box" style="background-color:{{box_color2}};"></div>
+                    {% endif %}
+                    {% if a%2==0 %}
+                        <div class="small_box" style="background-color:{{box_color1}};"></div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <br / >
+        {% endfor %}
+    </body>
+</html>
