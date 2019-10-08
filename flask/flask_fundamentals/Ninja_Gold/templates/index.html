@@ -38,11 +38,13 @@
         <p id= "act_p">Activities</p>
         <div id="act_box">
             {% for i in range(list_len,0,-1) %}
-                <p style="color:{{color[i]}}">{{player_activities_list[i]}}</p>
+                <p style="color:{{color[i-1]}}">{{player_activities_list[i-1]}}</p>
             {% endfor %}
         </div>
-        <a href="/destroy_session">
-            <button>Restart</button>
-        </a>
+        {% if player_activities_list[-1] == "You failed! Try again." or player_activities_list[-1] == "You won! Try again." %}
+            <a href="/destroy_session">
+                <button>Restart</button>
+            </a>
+        {% endif %}
     </body>
 </html>

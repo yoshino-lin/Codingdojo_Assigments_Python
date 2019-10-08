@@ -26,26 +26,35 @@ def money_count():
         money_get = random.randint(2, 5)
     elif player_action == "casino":
         money_get = random.randint(-50, 50)
-    session['player_gold']+=money_get
-    if len(session['player_activities']) >= 5:
+        #money_get = random.randint(150, 350)
+    if len(session['player_activities']) >= 15:
         if session['player_gold'] < 500:
+            session['player_gold']+=0
             session['color'].append("red")
-            session['player_activities'].append("lose")
+            session['player_activities'].append("You failed! Try again.")
         else:
+            session['player_gold']+=0
             session['color'].append("green")
-            session['player_activities'].append("win")
-    if money_get<0:
-        session['color'].append("red")
-        session['player_activities'].append("Enter a casino and lost "+str(0-money_get)+" gold... Ouch...("+time_now+")")
-    else:
+            session['player_activities'].append("You won! Try again.")
+    elif session['player_gold'] > 500:
+        session['player_gold']+=0
         session['color'].append("green")
-        session['player_activities'].append("Earn "+str(money_get)+" gold from "+player_action+"! ("+time_now+")")
+        session['player_activities'].append("You won! Try again.")
+    else:
+        if money_get<0:
+            session['player_gold']+=money_get
+            session['color'].append("red")
+            session['player_activities'].append("Enter a casino and lost "+str(0-money_get)+" gold... Ouch...("+time_now+")")
+        else:
+            session['player_gold']+=money_get
+            session['color'].append("green")
+            session['player_activities'].append("Earn "+str(money_get)+" gold from "+player_action+"! ("+time_now+")")
     return redirect('/')
+
 
 @app.route('/destroy_session')
 def clear_cookie():
     session.clear()		# clears all keys
-    #session.pop('count')    //clears a specific key
     return redirect('/')
 
 if __name__ == '__main__':
