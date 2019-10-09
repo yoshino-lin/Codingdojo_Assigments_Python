@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'Random_Word_Generator_app/style.css' %}">
+    </head>
+    <body>
+        <p>Random Word (attempt #{{attempt_time_index}})</p>
+        <h1>{{random_str_indx}}</h1>
+        <form action="/random_word" method="post">
+            {% csrf_token %}
+            <button type="submit" style="margin-left:900px;">Generate</button>
+        </form>
+    </body>
