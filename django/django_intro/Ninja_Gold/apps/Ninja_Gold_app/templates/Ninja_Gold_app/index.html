@@ -9,7 +9,7 @@
         <p id = "g1">Your Gold:</p>
         <p id = "g2">{{player_gold}}</p>
         <br />
-        <form action="/process_money" method="post">
+        <form action="/process_money" method="post" class="form_psot_box">
             {% csrf_token %}
             <h1>Farm
                 <p>(earns 10-20 golds)</p>
@@ -17,7 +17,7 @@
                 <input type="submit" value="Find Gold!" class="find_gold"/>
             </h1>
         </form>
-        <form action="/process_money" method="post">
+        <form action="/process_money" method="post" class="form_psot_box">
             {% csrf_token %}
             <h1>Cave
                 <p>(earns 5-10 golds)</p>
@@ -25,7 +25,7 @@
                 <input type="submit" value="Find Gold!" class="find_gold"/>
             </h1>
         </form>
-        <form action="/process_money" method="post">
+        <form action="/process_money" method="post" class="form_psot_box">
             {% csrf_token %}
             <h1>House
                 <p>(earns 2-5 golds)</p>
@@ -33,7 +33,7 @@
                 <input type="submit" value="Find Gold!" class="find_gold"/>
             </h1>
         </form>
-        <form action="/process_money" method="post">
+        <form action="/process_money" method="post" class="form_psot_box">
             {% csrf_token %}
             <h1>Casino
                 <p>(earns/takes 0-50 golds)</p>
@@ -43,13 +43,22 @@
         </form>
         <p id= "act_p">Activities</p>
         <div id="act_box">
-            {% for key, value in player_activities.items %}
+            {% for value in player_activities %}
                 <p style="color:{{value.0}}">{{value.1}}({{value.2}})</p>
             {% endfor %}
         </div>
-            <a href="/destroy_session">
-                <button>Restart</button>
-            </a>
-
+        <a href="/destroy_session">
+            <button>Restart</button>
+        </a>
+        <form action="/goal_input" method="post" id="goal">
+            {% csrf_token %}
+            <p>How Many Move to Win
+                <input type="text" name="goal_of_move" value={{goal_of_move}}>
+            </p>
+            <p>How Many Gold to Win
+                <input type="text" name="goal_of_gold" value={{goal_of_gold}}>
+            </p>
+            <input type="submit" value="submit" class="find_gold"/>
+        </form>
     </body>
 </html>
