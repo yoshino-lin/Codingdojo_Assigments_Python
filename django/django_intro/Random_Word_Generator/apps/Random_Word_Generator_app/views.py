@@ -11,8 +11,6 @@ def index(request):
         pass
     else:
         request.session['random_str'] = get_random_string(length=14)
-
-    print('attempt_time' in request.session)
     context = {
         "attempt_time_index":request.session['attempt_time'],
         "random_str_indx":request.session['random_str'],

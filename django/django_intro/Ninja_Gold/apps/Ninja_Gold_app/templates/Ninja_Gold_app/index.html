@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Ninja_Gold_app/style.css' %}">
+    </head>
+    <body>
+        <p id = "g1">Your Gold:</p>
+        <p id = "g2">{{player_gold}}</p>
+        <br />
+        <form action="/process_money" method="post">
+            {% csrf_token %}
+            <h1>Farm
+                <p>(earns 10-20 golds)</p>
+                <input type="hidden" name="building" value="farm" />
+                <input type="submit" value="Find Gold!" class="find_gold"/>
+            </h1>
+        </form>
+        <form action="/process_money" method="post">
+            {% csrf_token %}
+            <h1>Cave
+                <p>(earns 5-10 golds)</p>
+                <input type="hidden" name="building" value="cave" />
+                <input type="submit" value="Find Gold!" class="find_gold"/>
+            </h1>
+        </form>
+        <form action="/process_money" method="post">
+            {% csrf_token %}
+            <h1>House
+                <p>(earns 2-5 golds)</p>
+                <input type="hidden" name="building" value="house" />
+                <input type="submit" value="Find Gold!" class="find_gold"/>
+            </h1>
+        </form>
+        <form action="/process_money" method="post">
+            {% csrf_token %}
+            <h1>Casino
+                <p>(earns/takes 0-50 golds)</p>
+                <input type="hidden" name="building" value="casino" />
+                <input type="submit" value="Find Gold!" class="find_gold"/>
+            </h1>
+        </form>
+        <p id= "act_p">Activities</p>
+        <div id="act_box">
+            {% for key, value in player_activities.items %}
+                <p style="color:{{value.0}}">{{value.1}}({{value.2}})</p>
+            {% endfor %}
+        </div>
+            <a href="/destroy_session">
+                <button>Restart</button>
+            </a>
+
+    </body>
+</html>
