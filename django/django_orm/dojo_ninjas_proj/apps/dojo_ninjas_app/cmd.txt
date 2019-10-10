@@ -1,0 +1,25 @@
+Dojo.objects.create(name="user1",city="renton",state="wa")
+Dojo.objects.create(name="user2",city="bellevue",state="wa")
+Dojo.objects.create(name="user3",city="seatle",state="wa")
+Dojo.objects.all().delete()
+
+first_location=Dojo.objects.get(id=4)
+Ninja.objects.create(dojo=first_location,first_name="ninja1",last_name="Tom")
+Ninja.objects.create(dojo=first_location,first_name="ninja2",last_name="Jake")
+Ninja.objects.create(dojo=first_location,first_name="ninja3",last_name="Kenny")
+second_location=Dojo.objects.get(id=5)
+Ninja.objects.create(dojo=second_location,first_name="ninja4",last_name="Tom")
+Ninja.objects.create(dojo=second_location,first_name="ninja5",last_name="Jake")
+Ninja.objects.create(dojo=second_location,first_name="ninja6",last_name="Kenny")
+third_location=Dojo.objects.get(id=6)
+Ninja.objects.create(dojo=third_location,first_name="ninja7",last_name="Tom")
+Ninja.objects.create(dojo=third_location,first_name="ninja8",last_name="Jake")
+Ninja.objects.create(dojo=third_location,first_name="ninja9",last_name="Kenny")
+
+Ninja.objects.filter(dojo_id=4)
+Ninja.objects.filter(dojo_id=6)
+
+last_ninja = Ninja.objects.last()
+last_ninja.get(last_name)
+
+Dojo.objects.create(name="desc")
