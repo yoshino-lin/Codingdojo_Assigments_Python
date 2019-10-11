@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'Books_Authors_with_Templates_app/style.css' %}">
+    </head>
+    <body>
+        <h1>Add a Book</h1>
+        <form action="/goal_input" method="post">
+            {% csrf_token %}
+            <p>Title:
+                <input type="text" name="title_add" class="title">
+            </p>
+            <p>Description:
+                <input type="text" name="description_add">
+            </p>
+            <input type="submit" value="Add" class="add_button"/>
+        </form>
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in books_list %}
+                    <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td>
+                        <form action="/view_action" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="view" class="view_button"/>
+                        </form>
+                    </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
