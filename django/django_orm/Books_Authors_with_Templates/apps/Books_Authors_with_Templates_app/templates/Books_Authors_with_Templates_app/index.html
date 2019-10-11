@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1>Add a Book</h1>
-        <form action="/goal_input" method="post">
+        <form action="/book_add" method="post">
             {% csrf_token %}
             <p>Title:
                 <input type="text" name="title_add" class="title">
@@ -32,7 +32,7 @@
                     <td>{{item.id}}</td>
                     <td>{{item.title}}</td>
                     <td>
-                        <form action="/view_action" method="post">
+                        <form action="/books/{{item.id}}" method="post">
                             {% csrf_token %}
                             <input type="submit" value="view" class="view_button"/>
                         </form>

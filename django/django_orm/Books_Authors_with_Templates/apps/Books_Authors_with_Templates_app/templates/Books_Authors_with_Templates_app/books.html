@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Books_Authors_with_Templates_app/style.css' %}">
+    </head>
+    <body>
+        <h1>{{this_book.title}}</h1>
+        <p>ID: {{this_book.id}}</p>
+        <p>Description:{{this_book.desc}}</p>
+        <p>Authors</p>
+        <ul>
+            {% for name in this_book_authors %}
+                <li>{{name.first_name}} {{name.last_name}}</li>
+            {% endfor %}
+        <ul>
+        <form action="/book_author_add/{{this_book.id}}" method="post">
+        {% csrf_token %}
+            <select name ="author_id">
+                {% for item in authors_list %}
+                    {%if item not in this_book_authors%}
+                        <option value="{{item.id}}">{{item.first_name}} {{item.last_name}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <input type="submit" value="Add" class="add_button"/>
+        </form>
+    </body>
+</html>
