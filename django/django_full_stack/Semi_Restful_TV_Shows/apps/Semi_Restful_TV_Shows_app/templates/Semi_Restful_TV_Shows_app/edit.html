@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Semi_Restful_TV_Shows_app/style.css' %}">
+    </head>
+    <body>
+        <h1>Edit Show {{the_show_to_edit.id}}</h1>
+        <form action="/shows/{{the_show_to_edit.id}}/update" method="post">
+            {% csrf_token %}
+            <p>Title:<br />
+                <input type="text" name="title_add" class="title" value="{{the_show_to_edit.title}}">
+            </p>
+            <br />
+            <p class="same_line">Network:<br />
+                <input type="text" name="network_add" class="same_line_input1" value="{{the_show_to_edit.network}}">
+            </p>
+            <p class="same_line">Release Date:<br />
+                <input type="date" name="release_date_add" class="same_line_input2" value="{{the_show_to_edit.release_date}}">
+                <img src="{% static 'Semi_Restful_TV_Shows_app/calendar.png' %}" alt='calendar'/>
+            </p>
+            <br />
+            <p>Description:<br />
+                <input type="text" name="description_add" class="description_add" value="{{the_show_to_edit.desc}}">
+            </p>
+            <br />
+            <input type="submit" value="Update" class="add_button"/>
+        </form>
+        <form action="/shows" method="post">
+            {% csrf_token %}
+            <input type="submit"  value="Go to Show" class="blue_underline">
+        </form>
+    </body>
+</html>

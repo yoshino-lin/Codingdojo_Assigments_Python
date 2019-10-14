@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Semi_Restful_TV_Shows_app/style1.css' %}">
+    </head>
+    <body>
+        <h1>TV Show {{the_show.id}}</h1>
+        <p>Title: {{the_show.title}}</p>
+        <p>Network: {{the_show.network}}</p>
+        <p>Release Date: {{the_show.release_date}}</p>
+        <p>Description: {{the_show.desc}}</p>
+        <p>Last Updated: {{the_show.updated_at}}</p>
+        <form action="/shows/{{the_show.id}}/edit" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Edit" class="view_button"/>  |
+        </form>
+        <form action="/shows/{{the_show.id}}/destroy" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="view_button"/>
+        </form>
+    </body>
+</html>
