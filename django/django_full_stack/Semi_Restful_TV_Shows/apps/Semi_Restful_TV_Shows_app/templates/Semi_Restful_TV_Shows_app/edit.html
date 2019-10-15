@@ -6,6 +6,13 @@
         <link rel="stylesheet" href="{% static 'Semi_Restful_TV_Shows_app/style.css' %}">
     </head>
     <body>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <h1>Edit Show {{the_show_to_edit.id}}</h1>
         <form action="/shows/{{the_show_to_edit.id}}/update" method="post">
             {% csrf_token %}
