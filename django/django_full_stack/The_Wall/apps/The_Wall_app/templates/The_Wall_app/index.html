@@ -3,14 +3,40 @@
     <head>
         <meta charset="utf-8">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'The_Wall_app/style.css' %}">
+        <link rel="stylesheet" href="{% static 'The_Wall_app/style2.css' %}">
     </head>
     <body>
-        <h1>Post a message</h1>
-        <form action="/shows/create" method="post">
+        <h1>Success! Welcome, {{username}}</h1>
+        <form action='/logout' method='post'>
             {% csrf_token %}
-            <input type="text" name="message_text">
-            <input type="submit" value="Post a message"/>
+            <button type='submit'>Log Out!</button>
         </form>
+        <h1>Post a message</h1>
+        <form action="/wall" method="post">
+            {% csrf_token %}
+            <input type="text" name="message_text" class="message_text"/>
+            <br />
+            <input type="submit" value="Post a message" class="post_button"/>
+        </form>
+        {% for message in all_message %}
+            <h2>{{message.user.first_name}} {{message.user.last_name}} - {{message.created_at}}</h2>
+            <p>{{message.messages}}</p>
+            {% if message.user_id == user_id%}
+                <form action="/delete/{{message.id}}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete your message" class="post_button"/>
+                </form>
+            {% endif %}
+            {% for comment in message.comments.all %}
+                <h3 style="margin-left: 100px;">{{comment.user.first_name}} {{comment.user.last_name}} - {{comment.created_at}}</h3>
+                <p style="margin-left: 100px;">{{comment.comment}}</p>
+            {% endfor %}
+            <form action="/comment_post/{{message.id}}" method="post" style="margin-left: 100px;">
+                {% csrf_token %}
+                <input type="text" name="comment_text" class="message_text"/>
+                <br />
+                <input type="submit" value="Post a comment" class="post_button" style="margin-left:800px;background-color:green;"/>
+            </form>
+        {% endfor %}
     </body>
 </html>

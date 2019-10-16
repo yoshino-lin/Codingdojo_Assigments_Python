@@ -1,0 +1,15 @@
+div{
+    display: inline-block;
+    margin-right: 50px;
+    text-align: right;
+}
+input{
+    margin-left: 20px;
+}
+p{
+    display: inline-block;
+    text-align: left;
+}
+h2{
+    color: green;
+}
