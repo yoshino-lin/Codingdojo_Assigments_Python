@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Favorite_Books_app/style2.css' %}">
+    </head>
+    <body>
+        <h1>Welcome, {{username}}</h1>
+        <form action='/logout' method='post'>
+            {% csrf_token %}
+            <button type='submit'>Log Out!</button>
+        </form>
+        <div>
+            <h2>{{the_book.title}}</h2>
+            <p>added by: {{the_book.uploaded_by.first_name}} {{the_book.uploaded_by.last_name}}</p><br />
+            <p>added on: {{the_book.created_at}}</p><br />
+            <p>last updated on: {{the_book.updated_at}}</p><br />
+            <p>Description:{{the_book.desc}}</P>
+            <h2>Users Who Like This Book</h2>
+            {% for followers in the_book.users_who_like.all %}
+                <p>{{followers.first_name}} {{followers.last_name}}</p>
+            {% endfor %}
+            <form action='/addfavorite/{{the_book.id}}' method='post'>
+                {% csrf_token %}
+                <button type='submit' class="title">Favorite</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Favorite_Books_app/style2.css' %}">
+    </head>
+    <body>
+        <h1>Welcome, {{username}}</h1>
+        <form action='/logout' method='post'>
+            {% csrf_token %}
+            <button type='submit'>Log Out!</button>
+        </form>
+        <div>
+            <form action='/update/{{the_book.id}}' method='post'>
+                {% csrf_token %}
+                <input type="text" name="book_new_title" value="{{the_book.title}}"/>
+                <p>added by: {{the_book.uploaded_by.first_name}} {{the_book.uploaded_by.last_name}}</p><br />
+                <p>added on: {{the_book.created_at}}</p><br />
+                <p>last updated on: {{the_book.updated_at}}</p><br />
+                <p>Description:<input type="text" name="book_new_desc" value="{{the_book.desc}}"/></P>
+                <button type='submit' id="update_buttom">Update</button>
+            </form>
+            <form action='/delete_book/{{the_book.id}}' method='post'>
+                {% csrf_token %}
+                <button type='submit' id="delete_buttom">Delete</button>
+            </form>
+            <h2>Users Who Like This Book</h2>
+                {% for followers in the_book.users_who_like.all %}
+                    <p>{{followers.first_name}} {{followers.last_name}}</p>
+                    {% if followers == this_user %}
+                        <form action='/unfavorite/{{the_book.id}}' method='post'>
+                            {% csrf_token %}
+                            <button type='submit' class="title">Un-Favorite</button>
+                        </form>
+                    {% endif %}
+                {% endfor %}
+        </div>
+    </body>
+</html>

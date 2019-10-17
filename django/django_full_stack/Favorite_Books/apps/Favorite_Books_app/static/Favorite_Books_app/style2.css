@@ -1,0 +1,26 @@
+div{
+    display: inline-block;
+}
+.books_list{
+    margin-left: 100px;
+}
+.title{
+    color: blue;
+    font-weight: bold;
+    text-decoration:underline;
+    background-color: transparent;
+    border: 0px;
+}
+.book_like{
+    margin-top: -30px;
+    font-style:oblique;
+}
+#update_buttom{
+    background-color: white;
+}
+#delete_buttom{
+    position: absolute;
+    margin-top: -20px;
+    margin-left: 100px;
+    background-color: red;
+}
