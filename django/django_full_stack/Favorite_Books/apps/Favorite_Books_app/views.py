@@ -5,9 +5,12 @@ import time
 import datetime
 
 def index(request):
-    context={
-    }
-    return render(request,'Favorite_Books_app/login.html',context)
+    if 'first_name' in request.session:
+        return redirect('/success')
+    else:
+        context={
+        }
+        return render(request,'Favorite_Books_app/login.html',context)
 
 def registration(request):
     errors = User.objects.basic_validator(request.POST)
@@ -18,7 +21,7 @@ def registration(request):
         password = request.POST['password']
         pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
         User.objects.create(first_name=request.POST.get('first_name'),last_name=request.POST.get('last_name'),email=request.POST.get('email'),password=pw_hash,birthday=request.POST.get('birthday'))
-    return redirect('/')
+    return redirect('/success')
 
 def login(request):
     if 'first_name' not in request.session:

@@ -47,7 +47,7 @@ class InputChecker(models.Manager):
                 else:
                     errors['password_not_correct'] = "The password is not correct!"
         except ObjectDoesNotExist:
-            errors['email_not_exist'] = "I cannot fin your email! Please double check everything."
+            errors['email_not_exist'] = "I cannot find your email! Please double check everything."
         return errors
 
 class User(models.Model):
