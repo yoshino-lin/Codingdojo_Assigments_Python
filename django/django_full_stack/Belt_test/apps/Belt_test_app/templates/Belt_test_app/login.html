@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="{% static 'Belt_test_app/style.css' %}">
     </head>
     <body>
-        <h1>Welcome!</h1>
+        <h1>Welcome! Let's travel!</h1>
         <div class="Registration">
             <h2 id="r_h2">Registration</h2>
             <form action='/register' method='post'>
@@ -15,7 +15,6 @@
                     <tr><td>First Name</td><td><input name="first_name"></td></tr>
                     <tr><td>Last Name</td><td><input name="last_name"></td></tr>
                     <tr><td>Email</td><td><input name="email"></td></tr>
-                    <tr><td>Birthday</td><td><input type="date" name="birthday"/></td></tr>
                     <tr><td>Password</td><td><input type="password" name="password"></td></tr>
                     <tr><td>Confirm PW</td><td><input type="password" name="password_confirm"></td></tr>
                 </table>
@@ -23,7 +22,7 @@
             </form>
         </div>
         <div class="Registration">
-            <form action='/success' method='post'>
+            <form action='/dashboard' method='post'>
                 {% csrf_token %}
                 <h2 id="l_h2">Login</h2>
                 <table align="center">

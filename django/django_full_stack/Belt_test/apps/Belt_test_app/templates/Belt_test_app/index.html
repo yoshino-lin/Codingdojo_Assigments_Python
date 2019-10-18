@@ -3,49 +3,114 @@
     <head>
         <meta charset="utf-8">
         {% load static %}
-        <link rel="stylesheet" href="{% static 'Belt_test_app/style2.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'Belt_test_app/style1.css' %}">
     </head>
     <body>
         <h1>Welcome, {{username}}</h1>
         <form action='/logout' method='post'>
             {% csrf_token %}
-            <button type='submit'>Log Out!</button>
+            <button type='submit' class="blueuderline">Logout!</button>
+        </form>
+        <form action='/new' method='post'>
+            {% csrf_token %}
+            <button type='submit' class="normal_button">Create a new trip!</button>
         </form>
         <div>
-            <h1>Add a book</h1>
-            <form action="/book_add" method="post">
-                {% csrf_token %}
-                <p>Title: <input type="text" name="title_of_the_book_to_add"/></p><br />
-                <p>Description: <input type="text" name="desc_of_the_book_to_add"/></p><br />
-                <input type="submit" value="Add"/>
-            </form>
+            <p>Your trips</p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Destination</th>
+                  <th scope="col">Start_date</th>
+                  <th scope="col">End date</th>
+                  <th scope="col">Plan</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for trip in this_users_trips %}
+                    <tr>
+                      <td class="blueuderline">
+                          <form action='/trips/{{trip.id}}' method='post'>
+                          {% csrf_token %}
+                          <button type='submit' class="blueuderline2">{{trip.Destination}}</button>
+                          </form>
+                      </td>
+                      <td>{{trip.start_at}}</td>
+                      <td>{{trip.end_at}}</td>
+                      <td>{{trip.plan}}</td>
+                      <td>
+                        <form action='/remove/{{trip.id}}' method='post' class="form_in_line">
+                        {% csrf_token %}
+                        <button type='submit' class="blueuderline2">Remove</button>
+                        </form>
+                        <p class="line_L">|</p>
+                        <form action='/edit/{{trip.id}}' method='post' class="form_in_line2">
+                        {% csrf_token %}
+                        <button type='submit' class="blueuderline2">Edit</button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    {% for trip in this_users_trips_go %}
+                      <tr>
+                        <td class="blueuderline">
+                            <form action='/trips/{{trip.id}}' method='post'>
+                            {% csrf_token %}
+                            <button type='submit' class="blueuderline2">{{trip.Destination}}</button>
+                            </form>
+                        </td>
+                        <td>{{trip.start_at}}</td>
+                        <td>{{trip.end_at}}</td>
+                        <td>{{trip.plan}}</td>
+                        <td>
+                          <form action='/cancel/{{trip.id}}' method='post' class="form_in_line">
+                              {% csrf_token %}
+                              <button type='submit' class="blueuderline2">Cancel</button>
+                          </form>
+                        </td>
+                      </tr>
+                      {% endfor %}
+              </tbody>
+            </table>
         </div>
-        <div class="books_list">
-            <h2>All Books</h2>
-            {% for book in all_books %}
-                {% if book in this_user.liked_books.all %}
-                    <form action="/books/{{book.id}}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="{{book.title}}" class="title"/>
-                    </form>
-                {% endif %}
-                {% if book not in this_user.liked_books.all %}
-                    <form action="/book_display/{{book.id}}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="{{book.title}}" class="title"/>
-                    </form>
-                {% endif %}
-                <p class="uploaded_by">( added by {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}} )</p><br/>
-                {% if book in this_user.liked_books.all %}
-                    <p class="book_like">this is one of your favourite</p>
-                {% endif %}
-                {% if book not in this_user.liked_books.all %}
-                    <form action='/addfavorite/{{book.id}}' method='post'>
-                        {% csrf_token %}
-                        <button type='submit' class="title">Favorite</button>
-                    </form>
-                {% endif %}
-            {% endfor %}
+        <div>
+            <p>Other people's trips</p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Destination</th>
+                  <th scope="col">Start_date</th>
+                  <th scope="col">End date</th>
+                  <th scope="col">Plan</th>
+                  <th scope="col">Want to join?</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for trip in other_trips %}
+                    {% if this_user not in trip.users_who_go.all %}
+                        <tr>
+                          <td class="blueuderline">
+                              <form action='/trips/{{trip.id}}' method='post'>
+                              {% csrf_token %}
+                              <button type='submit' class="blueuderline2">{{trip.Destination}}</button>
+                              </form>
+                          </td>
+                          <td>{{trip.start_at}}</td>
+                          <td>{{trip.end_at}}</td>
+                          <td>{{trip.plan}}</td>
+                          <td>
+                            <form action='/join/{{trip.id}}' method='post' class="form_in_line">
+                                {% csrf_token %}
+                                <button type='submit' class="blueuderline2">Join</button>
+                            </form>
+                          </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+              </tbody>
+            </table>
         <div>
     </body>
 </html>

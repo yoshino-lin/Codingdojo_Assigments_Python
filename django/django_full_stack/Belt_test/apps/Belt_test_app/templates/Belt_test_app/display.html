@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Belt_test_app/style2.css' %}">
+    </head>
+    <body>
+        <h1>Welcome {{username}}! Read about this trip!</h1>
+        <form action='/dashboard' method='post' class="log_out_b">
+            {% csrf_token %}
+            <button type='submit' class="blueuderline">Dashboard</button>
+        </form>
+        <form action='/logout' method='post' class="log_out_b">
+            {% csrf_token %}
+            <button type='submit' class="blueuderline">Logout!</button>
+        </form>
+        <br/>
+        <h3>{{trip_display.Destination}}</h3>
+        <div class="plan_edit">
+            <p>Start Date: {{trip_display.start_at}}</p>
+            <p>End Date: {{trip_display.end_at}}</p>
+            <p>Created On: {{trip_display.created_at}}</p>
+            <p>Last Updated: {{trip_display.updated_at}}</p>
+            <p>Plan: {{trip_display.plan}}</p>
+            <p>Created by: {{trip_display.uploaded_by.first_name}} {{trip_display.uploaded_by.last_name}}</p>
+        </div>
+        <div>
+            <h3>People who've joined the trip</h3>
+            {% for people in trip_display.users_who_go.all%}
+                {% if people.first_name != trip_display.uploaded_by.first_name %}
+                    <p>{{people.first_name}} {{people.last_name}}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </body>
+</html>

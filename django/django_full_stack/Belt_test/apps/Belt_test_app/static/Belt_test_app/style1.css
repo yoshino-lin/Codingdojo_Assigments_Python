@@ -1,0 +1,50 @@
+h1{
+    display: inline-block;
+}
+form{
+    display: inline-block;
+}
+.blueuderline{
+    color: blue;
+    text-decoration:underline;
+    background-color: transparent;
+    border: 0px;
+    margin-left: 400px;
+    font-size: x-large;
+}
+.normal_button{
+    background-color: transparent;
+    border: 2px solid black;
+    padding: 10px;
+    font-size: x-large;
+    margin-left: 50px;
+}
+body{
+    padding: 50px;
+}
+div{
+    margin-top: 100px;
+}
+table{
+    border: 2px solid black;
+}
+th{
+    border-left: 2px solid black;
+}
+td{
+    border-left: 2px solid black;
+}
+.form_in_line{
+    display: inline-block;
+}
+.blueuderline2{
+    color: blue;
+    text-decoration:underline;
+    background-color: transparent;
+    border: 0px;
+    font-size: x-large;
+    display: inline-block;
+}
+.line_L{
+    display: inline-block;
+}

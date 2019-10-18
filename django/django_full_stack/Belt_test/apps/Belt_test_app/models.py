@@ -25,15 +25,6 @@ class InputChecker(models.Manager):
             errors["password"] = "Hey! Did you know that your password should be at least 8 characters?!"
         if postData["password"] != postData["password_confirm"]:
             errors["password_not_match"] = "The passwords do not match! Do you know how to copy and paste?"
-        if postData["birthday"] != "":
-            if (datetime.now() - datetime.strptime(postData["birthday"], '%Y-%m-%d')).days < 365*13:
-                if datetime.strptime(postData["birthday"], '%Y-%m-%d') > datetime.now():
-                    errors["birthday_in_the_future"] = "Sorry you cannot born in the future."
-                else:
-                    errors["not_old_enough"] = "Sorry kiddo you are not old enough."
-        else:
-            errors["not_birthday_input"] = "You need to enter your birthday!"
-
         return errors
     def basic_validator_2(self, postData):
         errors = {}
@@ -50,20 +41,41 @@ class InputChecker(models.Manager):
             errors['email_not_exist'] = "I cannot find your email! Please double check everything."
         return errors
 
+class InputChecker_trip(models.Manager):
+    def basic_validator3(self, postData):
+        errors = {}
+        if len(postData["Desination_add"]) < 3:
+            errors['Desination_add_to_short'] = "Sorry, but a trip destination must consist of at least 3 characters"
+        if len(postData["Plan_add"]) < 3:
+            errors['Plan_add_to_short'] = "Sorry, but a trip plan must consist of at least 3 characters"
+        if postData["Start_date_add"] != "":
+            if datetime.strptime(postData["Start_date_add"], '%Y-%m-%d') < datetime.now():
+                errors["Start_date_NOT_in_the_future"] = "Sorry the start date need to be in the future."
+        else:
+            errors["not_Start_date_input"] = "You need to enter your Start date!"
+        if postData["End_date_add"] != "":
+            if datetime.strptime(postData["End_date_add"], '%Y-%m-%d') < datetime.strptime(postData["Start_date_add"], '%Y-%m-%d'):
+                errors["Start_date_NOT_in_the_future"] = "Sorry the end date should be after the start date."
+        else:
+            errors["not_End_date_input"] = "You need to enter the End date!"
+        return errors
+        
 class User(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     email = models.CharField(max_length=45)
     password = models.CharField(max_length=255)
-    birthday = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = InputChecker()
 
-class Book(models.Model):
-    title = models.CharField(max_length=45)
-    desc = models.TextField()
+class Trip(models.Model):
+    Destination = models.CharField(max_length=45)
+    start_at = models.DateTimeField()
+    end_at = models.DateTimeField()
+    plan = models.TextField()
+    users_who_go = models.ManyToManyField(User, related_name="travlers")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    uploaded_by = models.ForeignKey(User, related_name="books_uploaded")
-    users_who_like = models.ManyToManyField(User, related_name="liked_books")
+    uploaded_by = models.ForeignKey(User, related_name="uploaded_by_who")
+    objects = InputChecker_trip()

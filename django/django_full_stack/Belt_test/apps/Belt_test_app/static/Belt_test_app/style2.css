@@ -1,0 +1,47 @@
+h1{
+    display: inline-block;
+}
+.log_out_b{
+    display: inline-block;
+}
+.blueuderline{
+    color: blue;
+    text-decoration:underline;
+    background-color: transparent;
+    border: 0px;
+    margin-left: 400px;
+    font-size: x-large;
+}
+.plan_add{
+    display: inline-block;
+    margin-right: 50px;
+    border: 2px solid black;
+    padding: 20px;
+}
+.plan_edit{
+    display: inline-block;
+    margin-right: 50px;
+    padding: 20px;
+}
+input{
+    margin-left: 30px;
+    border: 2px solid black;
+}
+.normal_button{
+    background-color: transparent;
+    border: 2px solid black;
+    padding: 10px;
+    font-size: x-large;
+    margin-left: 50px;
+    display: inline-block;
+    margin-left: 250px;
+    margin-top: 50px;
+}
+.can_bu{
+    margin-top: -102px;
+    margin-left:-100px;
+    position: absolute;
+}
+li{
+    color: red;
+}
