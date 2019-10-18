@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Belt_test_app/style.css' %}">
+    </head>
+    <body>
+        <h1>Welcome!</h1>
+        <div class="Registration">
+            <h2 id="r_h2">Registration</h2>
+            <form action='/register' method='post'>
+                {% csrf_token %}
+                <table align="center">
+                    <tr><td>First Name</td><td><input name="first_name"></td></tr>
+                    <tr><td>Last Name</td><td><input name="last_name"></td></tr>
+                    <tr><td>Email</td><td><input name="email"></td></tr>
+                    <tr><td>Birthday</td><td><input type="date" name="birthday"/></td></tr>
+                    <tr><td>Password</td><td><input type="password" name="password"></td></tr>
+                    <tr><td>Confirm PW</td><td><input type="password" name="password_confirm"></td></tr>
+                </table>
+                <button type='submit'>Register!</button>
+            </form>
+        </div>
+        <div class="Registration">
+            <form action='/success' method='post'>
+                {% csrf_token %}
+                <h2 id="l_h2">Login</h2>
+                <table align="center">
+                    <tr><td>Email</td><td><input name="email_login"></td></tr>
+                    <tr><td>Password</td><td><input type="password" name="password_login"></td></tr>
+                </table>
+                <button type='submit'>Log In!</button>
+            </form>
+        </div>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+    </body>
+</html>

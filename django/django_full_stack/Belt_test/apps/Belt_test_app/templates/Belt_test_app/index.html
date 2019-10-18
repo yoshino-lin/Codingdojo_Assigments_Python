@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'Belt_test_app/style2.css' %}">
+    </head>
+    <body>
+        <h1>Welcome, {{username}}</h1>
+        <form action='/logout' method='post'>
+            {% csrf_token %}
+            <button type='submit'>Log Out!</button>
+        </form>
+        <div>
+            <h1>Add a book</h1>
+            <form action="/book_add" method="post">
+                {% csrf_token %}
+                <p>Title: <input type="text" name="title_of_the_book_to_add"/></p><br />
+                <p>Description: <input type="text" name="desc_of_the_book_to_add"/></p><br />
+                <input type="submit" value="Add"/>
+            </form>
+        </div>
+        <div class="books_list">
+            <h2>All Books</h2>
+            {% for book in all_books %}
+                {% if book in this_user.liked_books.all %}
+                    <form action="/books/{{book.id}}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="{{book.title}}" class="title"/>
+                    </form>
+                {% endif %}
+                {% if book not in this_user.liked_books.all %}
+                    <form action="/book_display/{{book.id}}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="{{book.title}}" class="title"/>
+                    </form>
+                {% endif %}
+                <p class="uploaded_by">( added by {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}} )</p><br/>
+                {% if book in this_user.liked_books.all %}
+                    <p class="book_like">this is one of your favourite</p>
+                {% endif %}
+                {% if book not in this_user.liked_books.all %}
+                    <form action='/addfavorite/{{book.id}}' method='post'>
+                        {% csrf_token %}
+                        <button type='submit' class="title">Favorite</button>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        <div>
+    </body>
+</html>
